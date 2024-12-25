@@ -2,18 +2,21 @@ import os
 import librosa
 import librosa.display
 from preprocess.audio_processor import load_audio,clean_audio,generate_spectrogram
-from preprocess.transcription import transcribe_audio
+from preprocess.transcription import transcribe_audio_whisper
 from training.trainer import fine_tune_model
 import matplotlib.pyplot as plt
 
 def test():
     path = 'data/SamHarrisMedi.mp3'
     audio,sr = load_audio(path)
-    print(audio[0].shape)
+    transcript = transcribe_audio_whisper(path)
     
-    audio = clean_audio(audio[0])
+    print(transcript)
+    
+    # trimmed_audio,offsets = clean_audio(audio)
 
-    mel_spec_db = generate_spectrogram(audio[0])
+    # mel_spec_db = generate_spectrogram(trimmed_audio)
+    # print(mel_spec_db)
 
 def main(model_name):
     # Input audio file
